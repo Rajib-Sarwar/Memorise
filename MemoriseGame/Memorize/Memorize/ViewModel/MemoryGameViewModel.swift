@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct EmojiMemoryGameViewModel<CardContent: Equatable> {
+struct MemoryGameViewModel<CardContent: Equatable> {
     private(set) var cards: Array<Card>
     
     private var indexOfTheOneAndOnlyFaceUpCard: Int? {
@@ -32,6 +32,10 @@ struct EmojiMemoryGameViewModel<CardContent: Equatable> {
         }
     }
     
+    mutating func shuffle() {
+        cards.shuffle()
+    }
+    
     init(numberOfPairsOfCards: Int, createCardContent: (Int) -> CardContent) {
         cards = []
         //add numberOfPairsOfCards x 2 cards to cards array
@@ -40,6 +44,7 @@ struct EmojiMemoryGameViewModel<CardContent: Equatable> {
             cards.append(Card(content: content, id: pairIndex*2))
             cards.append(Card(content: content, id: pairIndex*2+1))
         }
+        cards.shuffle()
     }
     
     struct Card: Identifiable {
